@@ -1,1 +1,40 @@
+In router 0:
+Router>enable
+Router#configure terminal
 
+Router(config)#int gig0/0
+Router(config-if)#no shutdown
+Router(config-if)#ip address 192.168.10.1  255.255.255.0
+Router(config-if)#exit
+
+Router(config)#int se0/0/0
+Router(config-if)#no shutdown
+Router(config-if)#ip address 100.0.0.1  255.255.255.252
+Router(config-if)#exit
+
+
+Router(config)#ip dhcp pool mypool
+Router(dhcp-config)#network 192.168.10.0 255.255.255.0
+Router(dhcp-config)#default-router 192.168.10.1
+Router(dhcp-config)#dns-server 0.0.0.0
+Router(dhcp-config)#exit
+
+In router 1:
+Router>enable
+Router#configure terminal
+
+Router(config)#int gig0/0
+Router(config-if)#no shutdown
+Router(config-if)#ip address 192.168.20.1 255.255.255.0
+Router(config-if)#exit
+
+Router(config)#int se0/0/0
+Router(config-if)#no shutdown
+Router(config-if)#ip address 100.0.0.2 255.255.255.252
+Router(config-if)#exit
+
+Router(config)#ip dhcp pool mypool
+Router(dhcp-config)#network 192.168.20.0 255.255.255.0
+Router(dhcp-config)#default-router 192.168.20.1
+Router(dhcp-config)#dns-server 0.0.0.0
+Router(dhcp-config)#exit
